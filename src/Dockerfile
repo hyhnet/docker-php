@@ -9,10 +9,10 @@ RUN echo "http://mirrors.aliyun.com/alpine/v3.8/main" > /etc/apk/repositories \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone
 
-RUN apk add libxml2-dev libpng libpng-dev libjpeg freetype-dev
+RUN apk add libxml2-dev libpng libpng-dev libjpeg libjpeg-turbo-dev freetype-dev
 
 RUN docker-php-ext-install mysqli pdo_mysql zip sockets bcmath
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/local/include/ --with-png-dir=/usr/local/include/ \
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/local/include/ --with-png-dir=/usr/local/include/ --with-jpeg-dir=/usr/local/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
 RUN curl -sS https://getcomposer.org/installer | php \
