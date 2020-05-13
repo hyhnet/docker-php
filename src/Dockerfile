@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.3-fpm-alpine
 
 LABEL maintainer="cyrusyun@qq.com"
 
@@ -9,7 +9,7 @@ RUN echo "http://mirrors.aliyun.com/alpine/v3.9/main" > /etc/apk/repositories \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone
 
-RUN apk add libxml2-dev libpng libpng-dev libjpeg libjpeg-turbo-dev freetype-dev libzip-dev git autoconf
+RUN apk add libxml2-dev libpng libpng-dev libjpeg libjpeg-turbo-dev freetype-dev libzip-dev git autoconf zlib
 
 RUN docker-php-ext-install mysqli pdo_mysql zip sockets bcmath
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/local/include/ --with-png-dir=/usr/local/include/ --with-jpeg-dir=/usr/local/include/ \
