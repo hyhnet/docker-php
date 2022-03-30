@@ -12,8 +12,10 @@ RUN echo "http://mirrors.aliyun.com/alpine/v3.15/main" > /etc/apk/repositories \
 
 RUN apk add --no-cache libxml2-dev libpng libpng-dev libjpeg libjpeg-turbo-dev freetype-dev libzip-dev git autoconf zlib unixodbc-dev shadow libstdc++
 
-RUN docker-php-ext-install mysqli pdo_mysql zip sockets bcmath \
-    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN docker-php-ext-install mysqli pdo_mysql zip sockets bcmath
+RUN docker-php-ext-configure gd --with-freetype=/usr/local/include/ --with-jpeg=/usr/local/include/ \
+    && docker-php-ext-install -j$(nproc) gd
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
