@@ -29,6 +29,8 @@ RUN apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
     && docker-php-ext-enable sqlsrv \
     && pecl install pdo_sqlsrv \
     && docker-php-ext-enable pdo_sqlsrv \
+    && pecl install swoole \
+    && docker-php-ext-enable swoole \
     && pecl clear-cache \
     && usermod -u 1000 www-data \
     && rm -rf /usr/share/php \
